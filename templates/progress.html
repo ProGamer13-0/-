@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Прогресс по упражнениям</h2>
+
+{% if exercise_progress %}
+  {% for exercise, history in exercise_progress.items() %}
+    <h3>{{ exercise }}</h3>
+    <ul>
+      {% for date, weight in history %}
+        <li>{{ date }} — {{ weight }} кг</li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+{% else %}
+  <p>Нет данных для отображения прогресса.</p>
+{% endif %}
+
+<a href="{{ url_for('dashboard') }}">Назад</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ 'Редактировать' if workout else 'Добавить' }} упражнение</h2>
+<form method="POST">
+    Дата: <input type="date" name="date" value="{{ workout.date if workout else '' }}" required><br>
+    Упражнение: <input type="text" name="exercise" value="{{ workout.exercise if workout else '' }}" required><br>
+    Сеты: <input type="number" name="sets" value="{{ workout.sets if workout else '' }}" required><br>
+    Повторения: <input type="number" name="reps" value="{{ workout.reps if workout else '' }}" required><br>
+    Вес (кг): <input type="number" step="0.1" name="weight" value="{{ workout.weight if workout else '' }}" required><br>
+    <button type="submit">Сохранить</button>
+</form>
+{% endblock %}

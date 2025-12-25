@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 400px; margin: 50px auto; padding: 30px; background:#1c1c1c; border-radius:10px; color:#fff; text-align:center;">
+
+    <h2 style="color:#ff2d00; margin-bottom:20px;">{% if 'login' in request.path %}Вход{% else %}Регистрация{% endif %}</h2>
+
+    <form method="POST" style="display:flex; flex-direction:column; gap:15px;">
+
+        <input type="text" name="username" placeholder="Имя пользователя" required
+               style="padding:10px; border-radius:5px; border:none;">
+
+        <input type="password" name="password" placeholder="Пароль" required
+               style="padding:10px; border-radius:5px; border:none;">
+
+        <button type="submit" style="padding:10px; border:none; border-radius:5px; background:#ff2d00; color:#fff; font-weight:bold; cursor:pointer;">
+            {% if 'login' in request.path %}Войти{% else %}Зарегистрироваться{% endif %}
+        </button>
+    </form>
+
+    <p style="margin-top:15px;">
+        {% if 'login' in request.path %}
+            Нет аккаунта? <a href="{{ url_for('register') }}" style="color:#ff2d00;">Зарегистрироваться</a>
+        {% else %}
+            Уже есть аккаунт? <a href="{{ url_for('login') }}" style="color:#ff2d00;">Войти</a>
+        {% endif %}
+    </p>
+
+</div>
+{% endblock %}

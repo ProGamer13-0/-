@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Профиль</h2>
+<p>Имя: {{ current_user.username }}</p>
+<p>Роль: {{ current_user.role }}</p>
+
+<h3>Смена пароля</h3>
+<form method="POST" action="{{ url_for('change_password') }}">
+    Старый пароль: <input type="password" name="old_password" required><br>
+    Новый пароль: <input type="password" name="new_password" required><br>
+    <button type="submit">Сменить</button>
+</form>
+{% endblock %}

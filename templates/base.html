@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Training Diary</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <nav>
+  {% if current_user.is_authenticated %}
+    {% if current_user.role == 'user' %}
+      <a href="{{ url_for('dashboard') }}">Мой прогресс</a>
+      <a href="{{ url_for('progress') }}">Прогресс</a>
+      <a href="{{ url_for('statistics') }}">Статистика</a>
+    {% elif current_user.role == 'admin' %}
+      <a href="{{ url_for('admin_dashboard') }}">Админ-панель</a>
+    {% elif current_user.role == 'coach' %}
+      <a href="{{ url_for('coach_dashboard') }}">Панель тренера</a>
+    {% endif %}
+    <a href="{{ url_for('logout') }}">Выход</a>
+  {% else %}
+    <a href="{{ url_for('login') }}">Вход</a>
+    <a href="{{ url_for('register') }}">Регистрация</a>
+  {% endif %}
+</nav>
+
+        <hr>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <hr>
+        <p>&copy; {{ now().year }} Training Diary</p>
+    </footer>
+</body>
+</html>

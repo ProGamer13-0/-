@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Панель тренера</h1>
+
+{% for username, workouts in users_progress.items() %}
+<h3>{{ username }}</h3>
+<table>
+  <tr>
+    <th>Дата</th>
+    <th>Упражнение</th>
+    <th>Подходы</th>
+    <th>Повторения</th>
+    <th>Вес</th>
+    <th>Комментарии</th>
+    <th>Добавить комментарий</th>
+  </tr>
+  {% for w in workouts %}
+  <tr>
+    <td>{{ w.date }}</td>
+    <td>{{ w.exercise }}</td>
+    <td>{{ w.sets }}</td>
+    <td>{{ w.reps }}</td>
+    <td>{{ w.weight }}</td>
+    <td>
+      {% for c in w.comments %}
+        <p>{{ c.content }} ({{ c.date }})</p>
+      {% endfor %}
+    </td>
+    <td>
+      <form action="{{ url_for('add_comment', workout_id=w.id) }}" method="POST">
+        <input type="text" name="content" placeholder="Комментарий">
+        <button type="submit">Добавить</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endfor %}
+{% endblock %}

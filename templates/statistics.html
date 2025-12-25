@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Статистика тренировок за текущий год</h2>
+
+<canvas id="statsChart" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('statsChart').getContext('2d');
+const monthlyStats = {{ monthly_stats | tojson }};
+const labels = Object.keys(monthlyStats).map(m => `Месяц ${m}`);
+const data = Object.values(monthlyStats);
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Вес * подходы * повторения',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true },
+            title: { display: true, text: 'Статистика за год' }
+        },
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+</script>
+
+<a href="{{ url_for('dashboard') }}">Назад</a>
+{% endblock %}
